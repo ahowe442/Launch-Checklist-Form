@@ -37,54 +37,85 @@ window.addEventListener("load", function () {
     };
 
 
-    // call functions
-
-    isReadyForLaunch();
 
 
-    function isReadyForLaunch() {
-      showPilotNamesInStatusCheck();
-      checkCargoMass();
-      checkFuelLevel();
+    //2nd Try
+    // isReadyForLaunch();
 
-      if (checkCargoMass === false || checkFuelLevel === false) {
-        document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
-        document.getElementById('launchStatus').style.color = "red";
-        return false
-      } else {
-        document.getElementById('launchStatus').innerHTML = "Shuttle ready for launch";
-        document.getElementById('launchStatus').style.color = "green";
-      }
-    };
+    // function isReadyForLaunch() {
+    //   pilotStatus.innerHTML = `${pilotNameInput.value} is ready for launch`;
+    //   copilotStatus.innerHTML = `${copilotNameInput.value} is ready for launch`;
+
+    //   if (fuelLevelInput < 10000) {
+    //     document.getElementById("faultyItems").style.visibility = "visible";
+    //     document.getElementById('fuelStatus').innerHTML = "There is not enough fuel for the journey";
+    //     document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
+    //     document.getElementById('launchStatus').style.color = "red";
+    //   } else if (cargoMassInput < 10000) {
+    //     document.getElementById("faultyItems").style.visibility = "visible";
+    //     document.getElementById('fuelStatus').innerHTML = "There is too much mass for the shuttle to take off";
+    //     document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
+    //     document.getElementById('launchStatus').style.color = "red";
+    //   } else {
+    //     document.getElementById('launchStatus').innerHTML = "Shuttle ready for launch";
+    //     document.getElementById('launchStatus').style.color = "green";
+    //   };
+    // };
 
 
-    function showPilotNamesInStatusCheck() {
-      pilotStatus.innerHTML = `${pilotNameInput.value} is ready for launch`;
-      document.querySelector("#pilotStatus").style.visibility = "visible";
 
-      copilotStatus.innerHTML = `${copilotNameInput.value} is ready for launch`;
-      copilotStatus.style.visibility = "visible";
-    };
 
-    function checkFuelLevel() {
-      if (fuelLevelInput.value < 10000) {
-        document.getElementById("faultyItems").style.visibility = "visible";
-        document.getElementById('fuelStatus').innerHTML = "There is not enough fuel for the journey";
-        // document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
-        // document.getElementById('launchStatus').style.color = "red";
-      }
-      return false;
-    };
+    // call functions 1st try/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    function checkCargoMass() {
-      if (cargoMassInput.value < 10000) {
-        document.getElementById("faultyItems").style.visibility = "visible";
-        document.getElementById('fuelStatus').innerHTML = "There is too much mass for the shuttle to take off";
-        // document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
-        // document.getElementById('launchStatus').style.color = "red";
-      }
-      return false;
-    };
+    // isReadyForLaunch();
+
+    // function isReadyForLaunch() {
+    //   checkPilots();
+    //   checkCargoMass();
+    //   checkFuelLevel();
+
+    //   if (checkCargoMass === true || checkFuelLevel === true) {
+    //     document.getElementById('launchStatus').innerHTML = "Shuttle ready for launch";
+    //     document.getElementById('launchStatus').style.color = "green";
+
+    //   } else {
+    //     document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
+    //     document.getElementById('launchStatus').style.color = "red";
+    //   }
+    // };
+
+
+    // function checkPilots() {
+    //   pilotStatus.innerHTML = `${pilotNameInput.value} is ready for launch`;
+    //   document.querySelector("#pilotStatus").style.visibility = "visible";
+
+    //   copilotStatus.innerHTML = `${copilotNameInput.value} is ready for launch`;
+    //   copilotStatus.style.visibility = "visible";
+    // };
+
+    // function checkFuelLevel() {
+    //   if (fuelLevelInput.value < 10000) {
+    //     document.getElementById("faultyItems").style.visibility = "visible";
+    //     document.getElementById('fuelStatus').innerHTML = "There is not enough fuel for the journey";
+    //     // document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
+    //     // document.getElementById('launchStatus').style.color = "red";
+    //     return false;
+    //   } else {
+    //     return true
+    //   }
+    // };
+
+    // function checkCargoMass() {
+    //   if (cargoMassInput.value < 10000) {
+    //     document.getElementById("faultyItems").style.visibility = "visible";
+    //     document.getElementById('fuelStatus').innerHTML = "There is too much mass for the shuttle to take off";
+    //     // document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
+    //     // document.getElementById('launchStatus').style.color = "red";
+    //     return false;
+    //   } else {
+    //     return true
+    //   }
+    // };
 
   });
 
