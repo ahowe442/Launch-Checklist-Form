@@ -14,42 +14,43 @@ window.addEventListener("load", function () {
   let cargoStatus = document.querySelector("cargoStatus");
 
   form.addEventListener("submit", function (event) {
-      // valudation of user inputs
+    // valudation of user inputs
 
-      if (
-        pilotNameInput.value === "" ||
-        copilotNameInput.value === "" ||
-        fuelLevelInput.value === "" ||
-        cargoMassInput.value === ""
-      ) {
-        alert("Invalid Entry! All fields are required!");
-        // stop the form submission
+    if (
+      pilotNameInput.value === "" ||
+      copilotNameInput.value === "" ||
+      fuelLevelInput.value === "" ||
+      cargoMassInput.value === ""
+    ) {
+      alert("Invalid Entry! All fields are required!");
+      // stop the form submission
+      event.preventDefault();
+    } else if (allnumeric(fuelLevelInput)) {
+      alert("fuelLevel must have numeric characters only");
+      event.preventDefault();
+    } else if (allnumeric(cargoMassInput)) {
+      alert("Cargo Mass must have numeric characters only");
+      event.preventDefault();
+    }
+
+
+    //  Check if the shuttle is ready for launch. 
+    isReadyForLaunch();
+
+    function isReadyForLaunch() {
+      isPilotReady();
+
+      if (isCargoMassLight() === true && isFuelLevelFull() === true) {
         event.preventDefault();
-      } else if (allnumeric(fuelLevelInput)) {
-        alert("fuelLevel must have numeric characters only");
-        event.preventDefault();
-      } else if (allnumeric(cargoMassInput)) {
-        alert("Cargo Mass must have numeric characters only");
-        event.preventDefault();
-      }
-
-
-      //  Check if the shuttle is ready for launch. 
-      isReadyForLaunch();
-
-      function isReadyForLaunch() {
-        isPilotReady();
-
-        if isCargoMassLight() === true && isFuelLevelFull() === true) {
         document.getElementById("launchStatus").innerHTML =
           "Shuttle ready for launch";
         document.getElementById("launchStatus").style.color = "green";
-        event.preventDefault();
+
       } else {
+        event.preventDefault();
         document.getElementById("launchStatus").innerHTML =
           "Shuttle not ready for launch";
         document.getElementById("launchStatus").style.color = "red";
-        event.preventDefault();
       }
     };
 
@@ -61,13 +62,14 @@ window.addEventListener("load", function () {
 
     function isFuelLevelFull() {
       if (fuelLevelInput.value < 10000) {
+        event.preventDefault();
         document.getElementById("faultyItems").style.visibility = "visible";
         document.getElementById("fuelStatus").innerHTML =
           "There is not enough fuel for the journey";
         document.getElementById("launchStatus").innerHTML =
           "Shuttle not ready for launch";
         document.getElementById("launchStatus").style.color = "red";
-        event.preventDefault();
+        //event.preventDefault();
         return false;
       } else {
         return true;
@@ -75,9 +77,9 @@ window.addEventListener("load", function () {
     };
 
     function isCargoMassLight() {
-      if (cargoMassInput.value < 10000) {
+      if (cargoMassInput.value > 10000) {
         document.getElementById("faultyItems").style.visibility = "visible";
-        document.getElementById("fuelStatus").innerHTML =
+        document.getElementById("cargoStatus").innerHTML =
           "There is too much mass for the shuttle to take off";
         document.getElementById("launchStatus").innerHTML =
           "Shuttle not ready for launch";
@@ -90,21 +92,22 @@ window.addEventListener("load", function () {
     }
   });
 
-function allnumeric(input) {
-  var numbers = /^[0-9]+$/;
-  if (input.value.match(numbers)) {
-    return false;
-  } else {
-    return true;
+  function allnumeric(input) {
+    var numbers = /^[0-9]+$/;
+    if (input.value.match(numbers)) {
+      return false;
+    } else {
+      return true;
+    }
   }
-}
 
-//Mission Destination Information
-let json = []; fetch("https://handlers.education.launchcode.org/static/planets.json").then(
-  function (response) {
-    response.json().then(function (json) {
-      const missionTarget = document.getElementById("missionTarget");
-      missionTarget.innerHTML = `
+  //Mission Destination Information
+  let json = [];
+  fetch("https://handlers.education.launchcode.org/static/planets.json").then(
+    function (response) {
+      response.json().then(function (json) {
+        const missionTarget = document.getElementById("missionTarget");
+        missionTarget.innerHTML = `
                   <h2>Mission Destination</h2>
                        <ol>
                           <li>Name: ${json[0].name}</li>
@@ -115,7 +118,7 @@ let json = []; fetch("https://handlers.education.launchcode.org/static/planets.j
                        </ol>
                        <img src="${json[0].image}">
   `;
-    });
-  }
-);
+      });
+    }
+  );
 });
