@@ -6,131 +6,102 @@ window.addEventListener("load", function () {
   let copilotNameInput = document.querySelector("input[name=copilotName]");
   let fuelLevelInput = document.querySelector("input[name=fuelLevel]");
   let cargoMassInput = document.querySelector("input[name=cargoMass]");
-  let pilotStatus = document.querySelector('#pilotStatus');
-  let copilotStatus = document.querySelector('#copilotStatus');
-  let faultyItems = document.querySelector('#faultyItems');
-  let fuelStatus = document.querySelector('#fuelStatus');
-  let launchStatus = document.querySelector('#launchStatus');
-  let cargoStatus = document.querySelector('cargoStatus');
-
+  let pilotStatus = document.querySelector("#pilotStatus");
+  let copilotStatus = document.querySelector("#copilotStatus");
+  let faultyItems = document.querySelector("#faultyItems");
+  let fuelStatus = document.querySelector("#fuelStatus");
+  let launchStatus = document.querySelector("#launchStatus");
+  let cargoStatus = document.querySelector("cargoStatus");
 
   form.addEventListener("submit", function (event) {
+      // valudation of user inputs
+
+      if (
+        pilotNameInput.value === "" ||
+        copilotNameInput.value === "" ||
+        fuelLevelInput.value === "" ||
+        cargoMassInput.value === ""
+      ) {
+        alert("Invalid Entry! All fields are required!");
+        // stop the form submission
+        event.preventDefault();
+      } else if (allnumeric(fuelLevelInput)) {
+        alert("fuelLevel must have numeric characters only");
+        event.preventDefault();
+      } else if (allnumeric(cargoMassInput)) {
+        alert("Cargo Mass must have numeric characters only");
+        event.preventDefault();
+      }
 
 
-    // valudation of user inputs
+      //  Check if the shuttle is ready for launch. 
+      isReadyForLaunch();
 
-    if (
-      pilotNameInput.value === "" ||
-      copilotNameInput.value === "" ||
-      fuelLevelInput.value === "" ||
-      cargoMassInput.value === ""
-    ) {
-      alert("Invalid Entry! All fields are required!");
-      // stop the form submission
-      event.preventDefault();
-    } else if (allnumeric(fuelLevelInput)) {
-      alert("fuelLevel must have numeric characters only");
-      event.preventDefault();
-    } else if (allnumeric(cargoMassInput)) {
-      alert("Cargo Mass must have numeric characters only");
-      event.preventDefault();
+      function isReadyForLaunch() {
+        isPilotReady();
+
+        if isCargoMassLight() === true && isFuelLevelFull() === true) {
+        document.getElementById("launchStatus").innerHTML =
+          "Shuttle ready for launch";
+        document.getElementById("launchStatus").style.color = "green";
+        event.preventDefault();
+      } else {
+        document.getElementById("launchStatus").innerHTML =
+          "Shuttle not ready for launch";
+        document.getElementById("launchStatus").style.color = "red";
+        event.preventDefault();
+      }
     };
 
 
+    function isPilotReady() {
+      pilotStatus.innerHTML = `${pilotNameInput.value} is ready for launch`;
+      copilotStatus.innerHTML = `${copilotNameInput.value} is ready for launch`;
+    };
 
+    function isFuelLevelFull() {
+      if (fuelLevelInput.value < 10000) {
+        document.getElementById("faultyItems").style.visibility = "visible";
+        document.getElementById("fuelStatus").innerHTML =
+          "There is not enough fuel for the journey";
+        document.getElementById("launchStatus").innerHTML =
+          "Shuttle not ready for launch";
+        document.getElementById("launchStatus").style.color = "red";
+        event.preventDefault();
+        return false;
+      } else {
+        return true;
+      }
+    };
 
-    //2nd Try
-    // isReadyForLaunch();
-
-    // function isReadyForLaunch() {
-    //   pilotStatus.innerHTML = `${pilotNameInput.value} is ready for launch`;
-    //   copilotStatus.innerHTML = `${copilotNameInput.value} is ready for launch`;
-
-    //   if (fuelLevelInput < 10000) {
-    //     document.getElementById("faultyItems").style.visibility = "visible";
-    //     document.getElementById('fuelStatus').innerHTML = "There is not enough fuel for the journey";
-    //     document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
-    //     document.getElementById('launchStatus').style.color = "red";
-    //   } else if (cargoMassInput < 10000) {
-    //     document.getElementById("faultyItems").style.visibility = "visible";
-    //     document.getElementById('fuelStatus').innerHTML = "There is too much mass for the shuttle to take off";
-    //     document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
-    //     document.getElementById('launchStatus').style.color = "red";
-    //   } else {
-    //     document.getElementById('launchStatus').innerHTML = "Shuttle ready for launch";
-    //     document.getElementById('launchStatus').style.color = "green";
-    //   };
-    // };
-
-
-
-
-    // call functions 1st try/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // isReadyForLaunch();
-
-    // function isReadyForLaunch() {
-    //   checkPilots();
-    //   checkCargoMass();
-    //   checkFuelLevel();
-
-    //   if (checkCargoMass === true || checkFuelLevel === true) {
-    //     document.getElementById('launchStatus').innerHTML = "Shuttle ready for launch";
-    //     document.getElementById('launchStatus').style.color = "green";
-
-    //   } else {
-    //     document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
-    //     document.getElementById('launchStatus').style.color = "red";
-    //   }
-    // };
-
-
-    // function checkPilots() {
-    //   pilotStatus.innerHTML = `${pilotNameInput.value} is ready for launch`;
-    //   document.querySelector("#pilotStatus").style.visibility = "visible";
-
-    //   copilotStatus.innerHTML = `${copilotNameInput.value} is ready for launch`;
-    //   copilotStatus.style.visibility = "visible";
-    // };
-
-    // function checkFuelLevel() {
-    //   if (fuelLevelInput.value < 10000) {
-    //     document.getElementById("faultyItems").style.visibility = "visible";
-    //     document.getElementById('fuelStatus').innerHTML = "There is not enough fuel for the journey";
-    //     // document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
-    //     // document.getElementById('launchStatus').style.color = "red";
-    //     return false;
-    //   } else {
-    //     return true
-    //   }
-    // };
-
-    // function checkCargoMass() {
-    //   if (cargoMassInput.value < 10000) {
-    //     document.getElementById("faultyItems").style.visibility = "visible";
-    //     document.getElementById('fuelStatus').innerHTML = "There is too much mass for the shuttle to take off";
-    //     // document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
-    //     // document.getElementById('launchStatus').style.color = "red";
-    //     return false;
-    //   } else {
-    //     return true
-    //   }
-    // };
-
+    function isCargoMassLight() {
+      if (cargoMassInput.value < 10000) {
+        document.getElementById("faultyItems").style.visibility = "visible";
+        document.getElementById("fuelStatus").innerHTML =
+          "There is too much mass for the shuttle to take off";
+        document.getElementById("launchStatus").innerHTML =
+          "Shuttle not ready for launch";
+        document.getElementById("launchStatus").style.color = "red";
+        event.preventDefault();
+        return false;
+      } else {
+        return true;
+      }
+    }
   });
 
-  function allnumeric(input) {
-    var numbers = /^[0-9]+$/;
-    if (input.value.match(numbers)) {
-      return false;
-    } else {
-      return true;
-    }
-  };
+function allnumeric(input) {
+  var numbers = /^[0-9]+$/;
+  if (input.value.match(numbers)) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
-  //Mission Destination Information
-  let json = [];
-  fetch('https://handlers.education.launchcode.org/static/planets.json').then(function (response) {
+//Mission Destination Information
+let json = []; fetch("https://handlers.education.launchcode.org/static/planets.json").then(
+  function (response) {
     response.json().then(function (json) {
       const missionTarget = document.getElementById("missionTarget");
       missionTarget.innerHTML = `
@@ -143,8 +114,8 @@ window.addEventListener("load", function () {
                           <li>Number of Moons: ${json[0].moons}</li>
                        </ol>
                        <img src="${json[0].image}">
-  `
-    })
-  });
-
+  `;
+    });
+  }
+);
 });
