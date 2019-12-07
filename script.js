@@ -1,14 +1,23 @@
 // Write your JavaScript code here!
 window.addEventListener("load", function () {
   let form = document.querySelector("form");
-  form.addEventListener("submit", function (event) {
-    let pilotNameInput = document.querySelector("input[name=pilotName]");
-    let copilotNameInput = document.querySelector("input[name=copilotName]");
-    let fuelLevelInput = document.querySelector("input[name=fuelLevel]");
-    let cargoMassInput = document.querySelector("input[name=cargoMass]");
 
-    // alert("cargoMass: " + cargoMass.value);
-    //alert("fuelLevel.value: " + typeof fuelLevel.value)
+  let pilotNameInput = document.querySelector("input[name=pilotName]");
+  let copilotNameInput = document.querySelector("input[name=copilotName]");
+  let fuelLevelInput = document.querySelector("input[name=fuelLevel]");
+  let cargoMassInput = document.querySelector("input[name=cargoMass]");
+  let pilotStatus = document.querySelector('#pilotStatus');
+  let copilotStatus = document.querySelector('#copilotStatus');
+  let faultyItems = document.querySelector('#faultyItems');
+  let fuelStatus = document.querySelector('#fuelStatus');
+  let launchStatus = document.querySelector('#launchStatus');
+  let cargoStatus = document.querySelector('cargoStatus');
+
+
+  form.addEventListener("submit", function (event) {
+
+
+    // valudation of user inputs
 
     if (
       pilotNameInput.value === "" ||
@@ -19,41 +28,55 @@ window.addEventListener("load", function () {
       alert("Invalid Entry! All fields are required!");
       // stop the form submission
       event.preventDefault();
-    }
-
-    if (allnumeric(fuelLevelInput)) {
+    } else if (allnumeric(fuelLevelInput)) {
       alert("fuelLevel must have numeric characters only");
       event.preventDefault();
-    }
-
-    if (allnumeric(cargoMassInput)) {
+    } else if (allnumeric(cargoMassInput)) {
       alert("Cargo Mass must have numeric characters only");
       event.preventDefault();
-    }
+    };
 
-    let pilotStatus = document.querySelector('#pilotStatus');
-    let copilotStatus = document.querySelector('#copilotStatus');
 
-    // console.log(pilotNameInput.value);
-    // console.log(pilotStatus.innerHTML);
-    pilotStatus.innerHTML = `${pilotNameInput.value} is ready for launch`;
-    document.querySelector("#pilotStatus").style.visibility = "visible";
+    //testing variables
+    pilotNameInput = 'Abby';
+    copilotNameInput = 'Kellie';
+    fuelLevelInput = 3455;
+    cargoMassInput = 2000;
 
-    copilotStatus.innerHTML = `${copilotNameInput}`;
-    copilotStatus.style.visibility = "visible";
+    // call functions
+    showPilotNamesInStatusCheck();
+    checkCargoMass();
+    checkFuelLevel();
 
-    if (fuelLevelInput < 10000) {
-      document.getElementById("faultyItems").style.visibility = "visible";
-      document.getElementById('fuelStatus').innerHTML = "There is not enough fuel for the journey";
-      document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
-      document.getElementById('launchStatus').style.color = "red";
-    }
 
-    if (cargoMassInput < 10000) {
-      document.getElementById("faultyItems").style.visibility = "visible";
-      document.getElementById('fuelStatus').innerHTML = "There is too much mass for the shuttle to take off";
-    }
 
+
+
+    function showPilotNamesInStatusCheck() {
+      pilotStatus.innerHTML = `${pilotNameInput} is ready for launch`;
+      document.querySelector("#pilotStatus").style.visibility = "visible";
+
+      copilotStatus.innerHTML = `${copilotNameInput} is ready for launch`;
+      copilotStatus.style.visibility = "visible";
+    };
+
+    function checkFuelLevel() {
+      if (fuelLevelInput < 10000) {
+        document.getElementById("faultyItems").style.visibility = "visible";
+        document.getElementById('fuelStatus').innerHTML = "There is not enough fuel for the journey";
+        document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
+        document.getElementById('launchStatus').style.color = "red";
+      }
+    };
+
+    function checkCargoMass() {
+      if (cargoMassInput < 10000) {
+        document.getElementById("faultyItems").style.visibility = "visible";
+        document.getElementById('fuelStatus').innerHTML = "There is too much mass for the shuttle to take off";
+        document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
+        document.getElementById('launchStatus').style.color = "red";
+      }
+    };
 
 
 
