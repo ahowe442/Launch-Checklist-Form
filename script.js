@@ -38,10 +38,10 @@ window.addEventListener("load", function () {
 
 
     //testing variables
-    pilotNameInput = 'Abby';
-    copilotNameInput = 'Kellie';
-    fuelLevelInput = 3455;
-    cargoMassInput = 2000;
+    // pilotNameInput = 'Abby';
+    // copilotNameInput = 'Kellie';
+    // fuelLevelInput = 3455;
+    // cargoMassInput = 2000;
 
     // call functions
     showPilotNamesInStatusCheck();
@@ -53,15 +53,15 @@ window.addEventListener("load", function () {
 
 
     function showPilotNamesInStatusCheck() {
-      pilotStatus.innerHTML = `${pilotNameInput} is ready for launch`;
+      pilotStatus.innerHTML = `${pilotNameInput.value} is ready for launch`;
       document.querySelector("#pilotStatus").style.visibility = "visible";
 
-      copilotStatus.innerHTML = `${copilotNameInput} is ready for launch`;
+      copilotStatus.innerHTML = `${copilotNameInput.value} is ready for launch`;
       copilotStatus.style.visibility = "visible";
     };
 
     function checkFuelLevel() {
-      if (fuelLevelInput < 10000) {
+      if (fuelLevelInput.value < 10000) {
         document.getElementById("faultyItems").style.visibility = "visible";
         document.getElementById('fuelStatus').innerHTML = "There is not enough fuel for the journey";
         document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
@@ -70,7 +70,7 @@ window.addEventListener("load", function () {
     };
 
     function checkCargoMass() {
-      if (cargoMassInput < 10000) {
+      if (cargoMassInput.value < 10000) {
         document.getElementById("faultyItems").style.visibility = "visible";
         document.getElementById('fuelStatus').innerHTML = "There is too much mass for the shuttle to take off";
         document.getElementById('launchStatus').innerHTML = "Shuttle not ready for launch";
